@@ -2,6 +2,10 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.pdf
+*.txt
+vector_indices
+cover_letter_generator.py
 
 # C extensions
 *.so
