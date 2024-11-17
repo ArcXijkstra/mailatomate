@@ -3,7 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.pdf
-*.txt
+job_description.txt
+resume_with_image.txt
+extracted_from_non_image.txt
 vector_indices
 
 
