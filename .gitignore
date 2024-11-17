@@ -5,7 +5,7 @@ __pycache__/
 *.pdf
 *.txt
 vector_indices
-cover_letter_generator.py
+
 
 # C extensions
 *.so
