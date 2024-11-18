@@ -19,7 +19,9 @@ class GroqCoverLetterGenerator:
                     "role": "system",
                     "content": """You are a professional cover letter writer. 
                     Your task is to create compelling, personalized cover letters 
-                    that match candidate qualifications with job requirements."""
+                    that match candidate qualifications with job requirements.
+                    Don't write any exatra information, just start from subject. Don't need to write lines like "Here is a professional cover letter tailored to the job description and the candidate's resume:" or "Here is a professional cover letter:
+" etc."""
                 },
                 {
                     "role": "user",
@@ -41,7 +43,10 @@ class GroqCoverLetterGenerator:
                     4. Keep professional tone
                     5. Format as proper email with subject line
                     6. Include strong call to action
-                    7. Keep length between 250-400 words
+                    7. Keep length between 250-300 words
+                    8. End with professional closing
+                    9. Use proper grammar and punctuation
+
                     """
                 }
             ]
@@ -64,28 +69,3 @@ class GroqCoverLetterGenerator:
         except Exception as e:
             print(f"Error generating cover letter: {str(e)}")
             return None
-
-# Example usage
-if __name__ == "__main__":
-    # Initialize generator
-    generator = GroqCoverLetterGenerator(
-        groq_api_key=os.getenv('GROQ_API_KEY')
-    )
-    
-    # Read resume and job description
-    with open('data/resume_with_image.txt', 'r') as f:
-        resume_text = f.read()
-    with open('data/job_description.txt', 'r') as f:
-        job_description = f.read()
-    
-    # Generate cover letter
-    cover_letter = generator.generate_cover_letter(
-        resume_text=resume_text,
-        job_description=job_description,
-        hr_email="hr@company.com"
-    )
-    
-    if cover_letter:
-        print("Generated Cover Letter:")
-        print("=" * 50)
-        print(cover_letter) 
