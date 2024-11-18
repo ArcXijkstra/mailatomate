@@ -84,14 +84,3 @@ class VectorStore:
         )
         
         return stores
-
-# Usage example
-if __name__ == "__main__":
-    vector_store = VectorStore()
-    
-    # Process documents
-    stores = vector_store.process_documents(
-        "data/resume_with_image.txt",
-        "data/job_description.txt"
-    )
-    #py text_embedding_and_vector_storage.py

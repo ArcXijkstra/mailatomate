@@ -60,8 +60,18 @@ if st.button("Generate E-mail"):
         )
         with open("data/resume.txt", "r") as f:
             resume_text = f.read()
-        cover_letter_generator = GroqCoverLetterGenerator(groq_api_key=os.getenv('GROQ_API_KEY'))
-        cover_letter = cover_letter_generator.generate_cover_letter(resume_text, job_description, mail)
+
+        generator = GroqCoverLetterGenerator(groq_api_key=os.getenv('GROQ_API_KEY'))
+        # Create or load vector stores
+        resume_store = generator.load_or_create_vector_store(
+            resume_text, 
+            "resume_store"
+        )
+        jd_store = generator.load_or_create_vector_store(
+            job_description, 
+            "jd_store"
+        )
+        cover_letter = generator.generate_cover_letter(resume_store=resume_store, jd_store=jd_store, hr_email=mail)
 
         # Save generated email in session state
         st.session_state.content = cover_letter
@@ -79,38 +89,29 @@ st.text_area(
     on_change=update_content,  # Update content on change
 )
 
-# Function to send the email
+def login_dialog():
+    email = st.text_input("Email")
+    password = st.text_input("Password", type="password")
+
+    if st.button("Submit"):
+        st.session_state.email = email
+        st.session_state.password = password
+        st.session_state.logged_in = True
+        st.success("Logged in successfully!", icon="✅")
+        st.rerun()
+
 def send_mail():
     # Set up the SMTP server
     server = smtplib.SMTP("smtp.gmail.com", 587)
     server.starttls()
 
-    st.session_state.submit = False
     # Log in to the email account
-    # @st.dialog("Enter your email and password to log in")
-    # def login_dialog():
-    #     email = st.text_input("Email")
-    #     password = 'ommf wqxk vonr hlum'
-
-    #     st.session_state.email = email
-    #     st.session_state.password = password
-    #     if st.button("Submit"):
-    #         st.session_state.submit = True
-    #         return True
-        
-
-    # if not st.session_state.submit:
-    #     login_dialog()  
-    st.session_state.email = 'testmyprojectagain@gmail.com'
-    st.session_state.password = "ommf wqxk vonr hlum"
     server.login(st.session_state.email, st.session_state.password)
 
     def extract_content():
         body = st.session_state.content
-        # last_idx = body.find("\n")
-        # subject = body[:last_idx]
-        # body = body[last_idx+1:]
         return body
+
     body = extract_content()
     # Send the email
     server.sendmail(st.session_state.email, mail, body)
@@ -119,7 +120,16 @@ def send_mail():
     server.quit()
     st.write("Email sent successfully!")
 
-# Button to send the email
-if st.button("Confirm E-mail", on_click=send_mail):
-    st.write("Your Final E-mail:")
-    st.write(st.session_state.content)
+# Initialize session state variables
+if 'logged_in' not in st.session_state:
+    st.session_state.logged_in = False
+
+# Show login dialog if not logged in
+if not st.session_state.logged_in:
+    login_dialog()
+else:
+    # Button to send the email
+    if st.button("Confirm E-mail"):
+        send_mail()
+        st.write("Your Final E-mail:")
+        st.write(st.session_state.content)

@@ -111,7 +111,9 @@ class GroqCoverLetterGenerator:
                     "role": "system",
                     "content": """You are a professional cover letter writer. 
                     Create compelling, personalized cover letters that precisely match 
-                    candidate qualifications with job requirements."""
+                    candidate qualifications with job requirements.
+                    Directly start writing letter from subject, no need to provide any additional labels like "Here is a professional cover letter based on the matched information:" or "Here is a professional cover letter:" and other.
+                    """
                 },
                 {
                     "role": "user",
@@ -145,7 +147,13 @@ class GroqCoverLetterGenerator:
                     4. Maintain professional tone while showing enthusiasm
                     5. Format as proper email with subject line
                     6. Include strong call to action
-                    7. Keep length between 250-400 words
+                    7. Keep length between 250-300 words
+                    8. End with professional closing
+                    9. Use proper grammar and punctuation
+                    10. Avoid cliches and generic statements
+                    11. Avoid repeating information from resume
+                    12. Avoid negative language or criticism
+                    13. Make sure the email is humanised the email generated should be humanised
                     """
                 }
             ]
@@ -192,47 +200,3 @@ class GroqCoverLetterGenerator:
                 scores[req.strip()] = round(score, 2)
         
         return scores
-
-# Example usage
-if __name__ == "__main__":
-    import os
-    from dotenv import load_dotenv
-    
-    # Load environment variables
-    load_dotenv()
-    
-    # Initialize generator
-    generator = GroqCoverLetterGenerator(
-        groq_api_key=os.getenv('GROQ_API_KEY')
-    )
-    
-    # Read texts
-    with open('data/resume_with_image.txt', 'r', encoding='utf-8') as f:
-        resume_text = f.read()
-    with open('data/job_description.txt', 'r', encoding='utf-8') as f:
-        job_description = f.read()
-    
-    # Create or load vector stores
-    resume_store = generator.load_or_create_vector_store(
-        resume_text, 
-        "resume_store"
-    )
-    jd_store = generator.load_or_create_vector_store(
-        job_description, 
-        "jd_store"
-    )
-    
-    # Generate cover letter
-    cover_letter = generator.generate_cover_letter(
-        resume_store=resume_store,
-        jd_store=jd_store,
-        hr_email="hr@company.com"
-    )
-    
-    # Calculate match scores
-    match_scores = generator.calculate_match_scores(resume_store, jd_store)
-    
-    if cover_letter:
-        print("Generated Cover Letter:")
-        print("=" * 50)
-        print(cover_letter)

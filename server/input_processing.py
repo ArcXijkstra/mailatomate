@@ -1,9 +1,5 @@
 import os
-import PyPDF2
-import docx
 import pdfplumber
-from typing import Dict
-import re
 
 class DocumentProcessor:
     def __init__(self):
@@ -35,23 +31,12 @@ class DocumentProcessor:
         if resume_path.endswith('.pdf'):
             resume_text = self.parse_pdf_with_pdfplumber(resume_path)
         else:
-            print("Unsupported file type. Please use PDF or DOCX files.")
-            return
+            raise ("Unsupported file type. Please use PDF files.")
         
         # Extract the base name of the file without the extension
         file_name = os.path.splitext(os.path.basename(resume_path))[0]
-        print(file_name)
         
         # Save the extracted text to a file in 'data' directory
         self.save_text_to_file(resume_text, file_name)
         print(f"Text from {resume_path} has been saved as 'data/{file_name}.txt'")
-
-# Usage example
-if __name__ == "__main__":
-    processor = DocumentProcessor()
-    
-    # Replace with actual resume file paths
-    resume_path = "resume/resume_with_image.pdf"  # Update with actual path to resume
-    processor.process_documents(resume_path)
-
 
