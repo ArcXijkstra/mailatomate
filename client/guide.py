@@ -56,24 +56,7 @@ with st.container():
     st.write("When you click the `Generate Email` your professional email will be generated and ready to go.")
     st.button("Generate Email")
 
-# # Section 3: Key Features
-# st.header("✨ Key Features")
-# st.write("""
-# - **User-Friendly Interface**: Intuitive and simple to navigate.
-# - **Secure App Password Generation**: Ensures your privacy and security.
-# - **Resume & Job Match Analysis** (coming soon): Tailored feedback on your resume against the job description.
-# """)
-
 # Section 4: FAQs
-# st.header("❓ FAQs")
-# st.write("""
-# - **Is my data secure?**\n\n
-#   Yes, your data is processed securely and not shared with any third party.
-  
-# - **What if I encounter issues?**
-#   Use the "Contact Support" button available on the main application page.
-# """)
-
 st.header("❓ FAQs")
 
 # FAQ 1 - Data Security
