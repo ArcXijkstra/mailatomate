@@ -1,5 +1,9 @@
 import os
+import PyPDF2
+import docx
 import pdfplumber
+from typing import Dict
+import re
 
 class DocumentProcessor:
     def __init__(self):
@@ -42,12 +46,12 @@ class DocumentProcessor:
         self.save_text_to_file(resume_text, file_name)
         print(f"Text from {resume_path} has been saved as 'data/{file_name}.txt'")
 
-# # Usage example
-# if __name__ == "__main__":
-#     processor = DocumentProcessor()
+# Usage example
+if __name__ == "__main__":
+    processor = DocumentProcessor()
     
-#     # Replace with actual resume file paths
-#     resume_path = "resume/resume_with_image.pdf"  # Update with actual path to resume
-#     processor.process_documents(resume_path)
+    # Replace with actual resume file paths
+    resume_path = "resume/resume_with_image.pdf"  # Update with actual path to resume
+    processor.process_documents(resume_path)
 
 
