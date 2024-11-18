@@ -66,7 +66,7 @@ def show_guide():
     st.header("📧 Contact Us")
     st.write("""
     For any questions or support, feel free to reach out to us at:
-    - **General Inquiries**: anmol.cd22@bmsce.ac.in
+    - **General Inquiries**: anmolbhusal1804@gmail.com
     - **Technical Support**: bhishan.cd22@bmsce.ac.in
     - **Feedback & Suggestions**: sagar.cd22@bmsce.ac.in
     """)

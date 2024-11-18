@@ -24,6 +24,7 @@ if 'page' not in st.session_state:
     st.session_state.page = 'main'
 
 if st.session_state.page == 'main':
+    st.title("Generate Cover Letter with AI")
     job_description = st.text_area("Job Description", key="jd", height=200)
 
     mail = st.text_input("Mail to : ", key="mail",placeholder="Enter the mail to send the generated email")
@@ -91,7 +92,7 @@ if st.session_state.page == 'main':
     st.text_area(
         "Generated E-mail",
         st.session_state.get("content", ""),  # Show the content in session state or empty if none
-        height=300,
+        height=400,
         key="temp_content",
         on_change=update_content,  # Update content on change
     )
