@@ -53,7 +53,7 @@ Follow these steps to set up the project on your local machine.
 1. Clone the repository:
    ```bash
    git clone https://github.com/Med-Time/Gen-email.git
-   cd your-repository
+   cd Gen-email
    ```
 
 2. Install dependencies:
@@ -75,7 +75,7 @@ Follow these steps to set up the project on your local machine.
 
 ## Deployment
 You can access the deployed version of the application here:  
-**[Insert Deployment Link]**
+**https://genmail.streamlit.app**
 
 ## Contributors
 - **Anmol**  
