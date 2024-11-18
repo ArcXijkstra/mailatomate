@@ -6,7 +6,6 @@ st.write("""
 Welcome to the guide for using our application! This page will walk you through the features and how to use them effectively.
 """)
 
-# Section 1: What We Do
 st.header("📄 What We Do")
 st.write("""
 We simplify the process of sending professional emails to HR representatives of companies by:
@@ -17,84 +16,49 @@ We simplify the process of sending professional emails to HR representatives of 
 
 # Section 2: How to Use the Application
 st.header("🛠 How to Use")
-with st.container():
-    st.write("##### 1. **Upload Your Resume:**") 
-    uploaded_file = st.file_uploader("Upload Your Resume", type=["docx", "pdf"], help="Supported formats: .docx, .pdf") 
-    st.write("""As shown above similar section appears where we can drag and drop file here or click on `Browse files`.
-                Supported formats are: `.docx`, `.pdf`.
-                Maximum file size: 200MB. """)
-    
-with st.container():
-    st.write("##### 2.  **Input Job Description:**") 
-    st.write("""Similarly Copy-paste the job description text into the provided text box below: """)
-    job_description = st.text_area("Paste the Job Description", placeholder="Enter the job description here...", height=150)
+st.write("""
+1. **Upload Your Resume**: Click on the "Browse files" button to upload your resume (in PDF format).
+2. **Input Job Description**: Enter the job description in the text area provided for analysis.
+3. **Enter HR's Email**: Provide the HR's email address for sending your resume.
+4. **Generate Your Email**: The app will generate an email with the job description and resume attached for you to send.
+   
+   But you need to enter the Google app password to access the generated mail, so get your app password beforehand.
+""")
 
-with st.container():
-    st.write("##### 3.  **Enter HR's Email:**") 
-    email_hr = st.text_input("Enter HR's Email", placeholder="hr@example.com")
+st.header("🔑 Create and Use App Password")
+st.write("""
+1. **Sign in to your Google Account**:
+   - Go to [Google Account](https://myaccount.google.com).
+   - Sign in with your Google credentials (email and password).
 
-with st.container():
-    st.write("##### 4.  **Enter your Email:**") 
-    email_user = st.text_input("Enter Your Email", placeholder="yourname@example.com")
+2. **Go to Security Settings**:
+   - On the left-hand side, click on **Security**.
 
-with st.container():
-    st.write("##### 5.  **App Password Generation:**") 
-    app_password = st.text_input("App Password", placeholder="Generated password will appear here...")
-    st.write("Your email will be used for app password generation once you click the `Generate` button below:")
-    # Button to Generate App Password
-    if st.button("Generate"):
-        if email_user and email_hr and uploaded_file and job_description:
-            # Simulate generating a password (example only, use secure methods in production)
-            generated_password = "AppPass1234"
-            st.success(f"App Password Generated: {generated_password}")
-            # Display generated password in the disabled input
-            st.text_input("App Password", value=generated_password, disabled=True)
-        else:
-            st.error("Please fill in all fields and upload your resume to generate a password.")
-with st.container():
-    st.write("##### 6.  **Generate Email:**") 
-    st.write("When you click the `Generate Email` your professional email will be generated and ready to go.")
-    st.button("Generate Email")
+3. **Enable 2-Step Verification (if not already enabled)**:
+   - Scroll down to the "Signing in to Google" section.
+   - If **2-Step Verification** is not enabled, click on it and follow the steps to set it up.
 
-# Section 4: FAQs
-st.header("❓ FAQs")
+4. **Generate App Password**:
+   - Under the "Signing in to Google" section, find **App passwords**.
+   - Click on **App passwords** (you may be prompted to enter your password again).
 
-# FAQ 1 - Data Security
-with st.expander("Is my data secure?"):
-    st.write("""
-    Yes, your data is processed securely and not shared with any third party. 
-    We use industry-standard encryption and follow best practices to ensure your information stays private.
-    """)
+5. **Select the App and Device**:
+   - In the "Select app" drop-down, choose the app you're generating the password for (e.g., Mail, Calendar, etc.).
+   - In the "Select device" drop-down, choose the device you're using or select **Other (Custom name)** to name your device.
 
-# FAQ 2 - File Upload Support
-with st.expander("What types of files can I upload?"):
-    st.write("""
-    We support the following file formats for uploading your resume:
-    - `.docx`
-    - `.pdf`
-    
-    If you have any issues uploading your files, please contact support.
-    """)
+6. **Generate the Password**:
+   - Click on **Generate**.
+   - A 16-character app password will appear.
 
-# FAQ 3 - Email Usage
-with st.expander("How is my email used?"):
-    st.write("""
-    Your email is required for app-password generation and communication with HR. 
-    We do not share your email with any third party, and it will only be used for application-related purposes.
-    """)
+7. **Use the App Password**:
+   - Copy the generated app password.
+   - Paste this password into the app or service you're trying to sign into instead of your regular Google account password.
 
-# FAQ 4 - App Password Generation
-with st.expander("How is my app password generated?"):
-    st.write("""
-    Your app password is generated based on your email, which is used to create a unique identifier. 
-    It is a secure and temporary password that you can use for login purposes.
-    """)
+8. **Finish**:
+   - Once you've entered the app password, you should be able to access the app or service.
 
-# FAQ 5 - Encountering Issues
-with st.expander("What if I encounter issues?"):
-    st.write("""
-    If you encounter any issues, use the "Contact Us" section available at the bottom of this page.
-    """)
+For further understanding, you can visit [Google's official guide on App passwords](https://support.google.com/accounts/answer/185833?hl=en).
+""")
 
 # Section 5: Contact
 st.header("📧 Contact Us")
