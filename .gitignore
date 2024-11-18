@@ -6,6 +6,7 @@ __pycache__/
 job_description.txt
 resume_with_image.txt
 extracted_from_non_image.txt
+data
 vector_indices
 .vscode
 
