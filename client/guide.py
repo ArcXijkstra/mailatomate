@@ -42,9 +42,8 @@ st.write("""
    - Under the "Signing in to Google" section, find **App passwords**.
    - Click on **App passwords** (you may be prompted to enter your password again).
 
-5. **Select the App and Device**:
-   - In the "Select app" drop-down, choose the app you're generating the password for (e.g., Mail, Calendar, etc.).
-   - In the "Select device" drop-down, choose the device you're using or select **Other (Custom name)** to name your device.
+5. **Set the App**:
+   - To create a new app specific password, type a app name for it.
 
 6. **Generate the Password**:
    - Click on **Generate**.
@@ -52,7 +51,7 @@ st.write("""
 
 7. **Use the App Password**:
    - Copy the generated app password.
-   - Paste this password into the app or service you're trying to sign into instead of your regular Google account password.
+   - Paste this password into the main application page to retrieve the generated mail.
 
 8. **Finish**:
    - Once you've entered the app password, you should be able to access the app or service.
