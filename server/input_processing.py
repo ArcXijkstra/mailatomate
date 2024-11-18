@@ -20,7 +20,6 @@ class DocumentProcessor:
         try:
             with open(f"data/{file_name}.txt", 'w', encoding='utf-8') as file:
                 file.write(text)
-            print(f"Text successfully saved to 'data/{file_name}.txt'")
         except Exception as e:
             print(f"Error saving the file: {e}")
 
@@ -38,5 +37,4 @@ class DocumentProcessor:
         
         # Save the extracted text to a file in 'data' directory
         self.save_text_to_file(resume_text, file_name)
-        print(f"Text from {resume_path} has been saved as 'data/{file_name}.txt'")
 

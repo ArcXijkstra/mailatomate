@@ -3,7 +3,6 @@ import base64
 import os
 import sys
 import smtplib
-import yagmail
 
 
 server_path = os.path.join(os.path.dirname(__file__), '..', 'server')
