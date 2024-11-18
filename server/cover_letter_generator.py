@@ -6,15 +6,9 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
 import os
 
-class EnhancedGroqCoverLetterGenerator:
-    def __init__(self, groq_api_key: str, vector_store_path: str = "vector_indices"):
-        """
-        Initialize the Groq-based cover letter generator
-        
-        Args:
-            groq_api_key: API key for Groq
-            vector_store_path: Path where vector stores are saved
-        """
+class GroqCoverLetterGenerator:
+    def __init__(self, groq_api_key: str):
+        """Initialize the Groq-based cover letter generator"""
         self.client = groq.Client(api_key=groq_api_key)
         self.vector_store_path = vector_store_path
         
@@ -110,8 +104,10 @@ class EnhancedGroqCoverLetterGenerator:
                 {
                     "role": "system",
                     "content": """You are a professional cover letter writer. 
-                    Create compelling, personalized cover letters that precisely match 
-                    candidate qualifications with job requirements."""
+                    Your task is to create compelling, personalized cover letters 
+                    that match candidate qualifications with job requirements.
+                    Don't write any exatra information, just start from subject. Don't need to write lines like "Here is a professional cover letter tailored to the job description and the candidate's resume:" or "Here is a professional cover letter:
+" etc."""
                 },
                 {
                     "role": "user",
@@ -145,7 +141,10 @@ class EnhancedGroqCoverLetterGenerator:
                     4. Maintain professional tone while showing enthusiasm
                     5. Format as proper email with subject line
                     6. Include strong call to action
-                    7. Keep length between 250-400 words
+                    7. Keep length between 250-300 words
+                    8. End with professional closing
+                    9. Use proper grammar and punctuation
+
                     """
                 }
             ]
@@ -165,74 +164,3 @@ class EnhancedGroqCoverLetterGenerator:
         except Exception as e:
             print(f"Error generating cover letter: {str(e)}")
             return None
-
-    def calculate_match_scores(self,
-                            resume_store: FAISS,
-                            jd_store: FAISS) -> Dict[str, float]:
-        """
-        Calculate how well the resume matches job requirements
-        """
-        # Get key requirements
-        requirements = self.get_relevant_context(
-            jd_store,
-            "What are the specific requirements and qualifications?",
-            k=5
-        )
-        
-        # Split into individual requirements
-        req_chunks = self.text_splitter.split_text(requirements)
-        
-        scores = {}
-        for req in req_chunks:
-            # Find most relevant resume content
-            matches = resume_store.similarity_search_with_score(req, k=1)
-            if matches:
-                # Convert distance to similarity score (0-100%)
-                score = (1.0 - matches[0][1]) * 100
-                scores[req.strip()] = round(score, 2)
-        
-        return scores
-
-# Example usage
-if __name__ == "__main__":
-    import os
-    from dotenv import load_dotenv
-    
-    # Load environment variables
-    load_dotenv()
-    
-    # Initialize generator
-    generator = EnhancedGroqCoverLetterGenerator(
-        groq_api_key=os.getenv('GROQ_API_KEY')
-    )
-    
-    # Read texts
-    with open('data/resume_with_image.txt', 'r', encoding='utf-8') as f:
-        resume_text = f.read()
-    with open('data/job_description.txt', 'r', encoding='utf-8') as f:
-        job_description = f.read()
-    
-    # Create or load vector stores
-    resume_store = generator.load_or_create_vector_store(
-        resume_text, 
-        "resume_store"
-    )
-    jd_store = generator.load_or_create_vector_store(
-        job_description, 
-        "jd_store"
-    )
-    
-    # Generate cover letter
-    cover_letter = generator.generate_cover_letter(
-        resume_store=resume_store,
-        jd_store=jd_store,
-        hr_email="hr@company.com"
-    )
-    
-    # Calculate match scores
-    match_scores = generator.calculate_match_scores(resume_store, jd_store)
-    
-    if cover_letter:
-        print("Generated Cover Letter:")
-        print("=" * 50)
-        print(cover_letter)

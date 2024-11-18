@@ -9,7 +9,7 @@ resume
 resume_with_image.txt
 extracted_from_non_image.txt
 vector_indices
-
+.vscode
 
 # C extensions
 *.so
