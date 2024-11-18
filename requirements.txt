@@ -20,3 +20,4 @@ spacy
 tokenizers
 torch
 transformers
+langchain_huggingface
