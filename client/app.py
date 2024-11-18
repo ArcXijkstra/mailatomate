@@ -3,7 +3,6 @@ import base64
 import os
 import sys
 import smtplib
-import yagmail
 
 
 server_path = os.path.join(os.path.dirname(__file__), '..', 'server')
@@ -84,7 +83,7 @@ def update_content():
 st.text_area(
     "Generated E-mail",
     st.session_state.get("content", ""),  # Show the content in session state or empty if none
-    height=300,
+    height=400,
     key="temp_content",
     on_change=update_content,  # Update content on change
 )
